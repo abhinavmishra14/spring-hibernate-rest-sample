@@ -17,6 +17,8 @@
  */
 package com.github.abhinavmishra14.controller;
 
+import javax.mail.MessagingException;
+
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -74,7 +76,7 @@ public class GetLoginController {
 				} else {
 					getLoginResp.getResponse().put("result", "Could not find user information for given userId: "+userId);
 				}
-			} catch (RestWebAppException excp) {
+			} catch (RestWebAppException | MessagingException excp) {
 				LOGGER.error("Exception occurred while getting login details", excp);
 				getLoginResp.getErrorMessages().put("ErrorMessage", excp.getMessage());
 			}

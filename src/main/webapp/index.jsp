@@ -1,5 +1,5 @@
 <html>
 <body>
-	<h2>Cdeex REST WebApplication!</h2><br/>
+	<h2>Spring Hibernate REST WebApplication!</h2><br/>
 </body>
 </html>

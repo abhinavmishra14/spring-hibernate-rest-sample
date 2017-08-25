@@ -47,42 +47,33 @@ public final class MailUtil {
 	/**
 	 * Send mail.
 	 *
-	 * @param to
-	 *            the to
-	 * @param subject
-	 *            the subject
-	 * @param content
-	 *            the content
-	 * @throws MessagingException
-	 * @throws AddressException
+	 * @param to the to
+	 * @param subject the subject
+	 * @param content the content
+	 * @throws AddressException the address exception
+	 * @throws MessagingException the messaging exception
 	 */
-	public static boolean sendMail(final String to, final String subject, final String content) {
+	public static void sendMail(final String to, final String subject, final String content)
+			throws AddressException, MessagingException {
 		LOGGER.info("sendMail invoked.");
-		boolean sendMailFlag = false;
-		try {
-			final Message message = mailProperties();
-			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
-			message.setSubject(subject);
-			final Multipart multipart = new MimeMultipart("alternative");
-			final BodyPart htmlMessageBodyPart = new MimeBodyPart();
-			htmlMessageBodyPart.setContent(content, "text/html");
-			multipart.addBodyPart(htmlMessageBodyPart);
-			message.setContent(multipart);
-			Transport.send(message);
-			LOGGER.debug("Email Message Sent..");
-			sendMailFlag = true;
-		} catch (Exception excp) {
-			LOGGER.error("Exception occurred while sending email", excp);
-		}
-		return sendMailFlag;
+		final Message message = mailProperties();
+		message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+		message.setSubject(subject);
+		final Multipart multipart = new MimeMultipart("alternative");
+		final BodyPart htmlMessageBodyPart = new MimeBodyPart();
+		htmlMessageBodyPart.setContent(content, "text/html");
+		multipart.addBodyPart(htmlMessageBodyPart);
+		message.setContent(multipart);
+		Transport.send(message);
+		LOGGER.debug("Email Message Sent..");
 	}
 
 	/**
 	 * Mail properties.
 	 *
 	 * @return the message
-	 * @throws MessagingException
-	 * @throws AddressException
+	 * @throws AddressException the address exception
+	 * @throws MessagingException the messaging exception
 	 */
 	public static Message mailProperties() throws AddressException, MessagingException {
 		final Properties props = new Properties();
@@ -107,10 +98,8 @@ public final class MailUtil {
 	 * Mail authenticate.
 	 *
 	 * @return the message
-	 * @throws AddressException
-	 *             the address exception
-	 * @throws MessagingException
-	 *             the messaging exception
+	 * @throws AddressException the address exception
+	 * @throws MessagingException the messaging exception
 	 */
 	public static Message mailAuthenticate() throws AddressException, MessagingException {
 		final String fromAddress = PropertyReader.getProperty("fromAddress");
@@ -134,38 +123,27 @@ public final class MailUtil {
 	/**
 	 * Send mail via gmail.
 	 *
-	 * @param to
-	 *            the to
-	 * @param subject
-	 *            the subject
-	 * @param content
-	 *            the content
-	 * @throws AddressException
-	 *             the address exception
-	 * @throws MessagingException
-	 *             the messaging exception
+	 * @param to the to
+	 * @param subject the subject
+	 * @param content the content
+	 * @throws AddressException the address exception
+	 * @throws MessagingException the messaging exception
 	 */
-	public static boolean sendMailViaGmail(final String to, final String subject, final String content) {
+	public static void sendMailViaGmail(final String to, final String subject, final String content)
+			throws AddressException, MessagingException {
 		LOGGER.info("sendMailViaGmail invoked..");
-		boolean sendMailFlag = false;
-		try {
-			final Message message = mailAuthenticate();
-			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
-			message.setSubject(subject);
-			final Multipart multipart = new MimeMultipart("alternative");
-			final BodyPart htmlMessageBodyPart = new MimeBodyPart();
-			htmlMessageBodyPart.setContent(content, "text/html");
-			multipart.addBodyPart(htmlMessageBodyPart);
-			message.setContent(multipart);
-			Transport.send(message);
-			LOGGER.info("Email Message Sent..");
-			sendMailFlag = true;
-		} catch (Exception excp) {
-			LOGGER.error("Exception occurred while sending email", excp);
-		}
-		return sendMailFlag;
+		final Message message = mailAuthenticate();
+		message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+		message.setSubject(subject);
+		final Multipart multipart = new MimeMultipart("alternative");
+		final BodyPart htmlMessageBodyPart = new MimeBodyPart();
+		htmlMessageBodyPart.setContent(content, "text/html");
+		multipart.addBodyPart(htmlMessageBodyPart);
+		message.setContent(multipart);
+		Transport.send(message);
+		LOGGER.info("Email Message Sent..");
 	}
-	
+
 	/**
 	 * Prepare content.
 	 *
@@ -177,11 +155,11 @@ public final class MailUtil {
 		final String ticket = expiryDate + ":" + userId;
 		final StringBuilder strBuild = new StringBuilder();
 		strBuild.append("Hi ").append(userId).append("<br/>").append(PropertyReader.getProperty("mailContent"))
-			.append(PropertyReader.getProperty("mailContentLink"))
-			.append("<a href='")
-			.append(PropertyReader.getProperty("login.url"))
-			.append(RestAppUtils.encodeBytesToBase64String(ticket.getBytes()))
-			.append("'>Login here</a>").append(PropertyReader.getProperty("mailContentThankStmt"));
+		.append(PropertyReader.getProperty("mailContentLink"))
+		.append("<a href='")
+		.append(PropertyReader.getProperty("login.url"))
+		.append(RestAppUtils.encodeBytesToBase64String(ticket.getBytes()))
+		.append("'>Login here</a>").append(PropertyReader.getProperty("mailContentThankStmt"));
 		return strBuild.toString();
 	}
 
