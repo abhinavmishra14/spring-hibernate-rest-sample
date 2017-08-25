@@ -28,8 +28,8 @@ import org.springframework.stereotype.Repository;
 import com.github.abhinavmishra14.dao.UserProfileDao;
 import com.github.abhinavmishra14.exception.RestWebAppException;
 import com.github.abhinavmishra14.model.UserInfo;
-import com.github.abhinavmishra14.utils.RestAppUtils;
 import com.github.abhinavmishra14.utils.HibernateUtil;
+import com.github.abhinavmishra14.utils.RestAppUtils;
 
 /**
  * The Class UserProfileDaoImpl.
