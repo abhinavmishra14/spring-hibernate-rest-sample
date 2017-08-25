@@ -1,0 +1,17 @@
+**********************
+THIRD PARTY COMPONENTS
+**********************
+
+===Apache 2.0 - License====
+commons-*   http://commons.apache.org/
+spring-*    https://spring.io/
+jackson-*   http://fasterxml.com
+ 
+===MIT License===
+slf4j-*   http://www.slf4j.org/
+
+===Eclipse Public License====
+junit-*  http://junit.org/
+
+=== LGPL====
+org.hibernate-* http://hibernate.org
